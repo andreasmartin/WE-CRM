@@ -17,14 +17,18 @@ class AuthToken {
 	 */
 	private $validator;
 	/**
-	 * @AttributeType Timestamp
+	 * @AttributeType String
 	 */
 	private $expiration;
 	/**
 	 * @AssociationType int
 	 * @AssociationMultiplicity 1
 	 */
-	private $agentId;
+	private $agentid;
+	/**
+	 * @AttributeType int
+	 */
+	private $type;
 
 	/**
 	 * @access public
@@ -88,8 +92,8 @@ class AuthToken {
 
 	/**
 	 * @access public
-	 * @return Timestamp
-	 * @ReturnType Timestamp
+	 * @return String
+	 * @ReturnType String
 	 */
 	public function getExpiration() {
 		return $this->expiration;
@@ -97,12 +101,12 @@ class AuthToken {
 
 	/**
 	 * @access public
-	 * @param Timestamp expiration
+	 * @param String expiration
 	 * @return void
-	 * @ParamType expiration Timestamp
+	 * @ParamType expiration String
 	 * @ReturnType void
 	 */
-	public function setExpiration(Timestamp $expiration) {
+	public function setExpiration($expiration) {
 		$this->expiration = $expiration;
 	}
 
@@ -111,19 +115,39 @@ class AuthToken {
 	 * @return int
 	 * @ReturnType int
 	 */
-	public function getAgentId() {
-		return $this->agentId;
+	public function getAgentid() {
+		return $this->agentid;
 	}
 
 	/**
 	 * @access public
-	 * @param int agentId
+	 * @param int agentid
 	 * @return void
-	 * @ParamType agentId int
+	 * @ParamType agentid int
 	 * @ReturnType void
 	 */
-	public function setAgentId($agentId) {
-		$this->agentId = $agentId;
+	public function setAgentid($agentid) {
+		$this->agentid = $agentid;
+	}
+
+	/**
+	 * @access public
+	 * @return int
+	 * @ReturnType int
+	 */
+	public function getType() {
+		return $this->type;
+	}
+
+	/**
+	 * @access public
+	 * @param int type
+	 * @return void
+	 * @ParamType type int
+	 * @ReturnType void
+	 */
+	public function setType($type) {
+		$this->type = $type;
 	}
 }
 ?>

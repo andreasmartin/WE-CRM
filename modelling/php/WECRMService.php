@@ -15,10 +15,6 @@ interface WECRMService {
 	 * @AttributeType int
 	 */
 	const RESET_TOKEN = 2;
-	/**
-	 * @AttributeType int
-	 */
-	const JWT_TOKEN = 3;
 
 	/**
 	 * @access public
@@ -33,17 +29,6 @@ interface WECRMService {
 
 	/**
 	 * @access public
-	 * @param string name
-	 * @param String email
-	 * @param String password
-	 * @ParamType name string
-	 * @ParamType email String
-	 * @ParamType password String
-	 */
-	public function registerAgent($name, $email, $password);
-
-	/**
-	 * @access public
 	 * @return Agent
 	 * @ReturnType Agent
 	 */
@@ -54,9 +39,11 @@ interface WECRMService {
 	 * @param string name
 	 * @param String email
 	 * @param String password
+	 * @return boolean
 	 * @ParamType name string
 	 * @ParamType email String
 	 * @ParamType password String
+	 * @ReturnType boolean
 	 */
 	public function editAgent($name, $email, $password);
 
@@ -104,21 +91,21 @@ interface WECRMService {
 	/**
 	 * @access public
 	 * @param String token
-	 * @param int type
 	 * @return boolean
 	 * @ParamType token String
-	 * @ParamType type int
 	 * @ReturnType boolean
 	 */
-	public function validateToken($token, $type = self::AGENT_TOKEN);
+	public function validateToken($token);
 
 	/**
 	 * @access public
 	 * @param int type
+	 * @param String email
 	 * @return String
 	 * @ParamType type int
+	 * @ParamType email String
 	 * @ReturnType String
 	 */
-	public function issueToken($type = self::AGENT_TOKEN);
+	public function issueToken($type = self::AGENT_TOKEN, $email = null);
 }
 ?>

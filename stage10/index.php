@@ -8,6 +8,7 @@
 require_once("config/Autoloader.php");
 
 use router\Router;
+use http\HTTPException;
 use controller\CustomerController;
 use controller\AgentController;
 use controller\AuthController;
@@ -15,16 +16,11 @@ use controller\ErrorController;
 
 session_start();
 
-$auth = function () {
+$authFunction = function () {
     if (AuthController::authenticate())
         return true;
     Router::redirect("/login");
     return false;
-};
-
-$error = function () {
-    Router::errorHeader();
-    ErrorController::show404();
 };
 
 Router::route("GET", "/login", function () {
@@ -50,35 +46,40 @@ Router::route("GET", "/logout", function () {
     Router::redirect("/login");
 });
 
-Router::route_auth("GET", "/", $auth, function () {
+Router::route_auth("GET", "/", $authFunction, function () {
     CustomerController::readAll();
 });
 
-Router::route_auth("GET", "/agent/edit", $auth, function () {
+Router::route_auth("GET", "/agent/edit", $authFunction, function () {
     AgentController::edit();
 });
 
-Router::route_auth("POST", "/agent/edit", $auth, function () {
+Router::route_auth("POST", "/agent/edit", $authFunction, function () {
     AgentController::update();
     Router::redirect("/logout");
 });
 
-Router::route_auth("GET", "/customer/create", $auth, function () {
+Router::route_auth("GET", "/customer/create", $authFunction, function () {
     CustomerController::create();
 });
 
-Router::route_auth("GET", "/customer/edit", $auth, function () {
+Router::route_auth("GET", "/customer/edit", $authFunction, function () {
     CustomerController::edit();
 });
 
-Router::route_auth("GET", "/customer/delete", $auth, function () {
+Router::route_auth("GET", "/customer/delete", $authFunction, function () {
     CustomerController::delete();
     Router::redirect("/");
 });
 
-Router::route_auth("POST", "/customer/update", $auth, function () {
+Router::route_auth("POST", "/customer/update", $authFunction, function () {
     CustomerController::update();
     Router::redirect("/");
 });
 
-Router::call_route($_SERVER['REQUEST_METHOD'], $_SERVER['PATH_INFO'], $error);
+try {
+    Router::call_route($_SERVER['REQUEST_METHOD'], $_SERVER['PATH_INFO'], $errorFunction);
+} catch (HTTPException $exception) {
+    $exception->getHeader();
+    ErrorController::show404();
+}

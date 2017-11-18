@@ -65,19 +65,6 @@ class WECRMServiceImpl implements WECRMService {
 
 	/**
 	 * @access public
-	 * @param string name
-	 * @param String email
-	 * @param String password
-	 * @ParamType name string
-	 * @ParamType email String
-	 * @ParamType password String
-	 */
-	public function registerAgent($name, $email, $password) {
-		// Not yet implemented
-	}
-
-	/**
-	 * @access public
 	 * @return Agent
 	 * @ReturnType Agent
 	 */
@@ -90,9 +77,11 @@ class WECRMServiceImpl implements WECRMService {
 	 * @param string name
 	 * @param String email
 	 * @param String password
+	 * @return boolean
 	 * @ParamType name string
 	 * @ParamType email String
 	 * @ParamType password String
+	 * @ReturnType boolean
 	 */
 	public function editAgent($name, $email, $password) {
 		// Not yet implemented
@@ -152,24 +141,24 @@ class WECRMServiceImpl implements WECRMService {
 	/**
 	 * @access public
 	 * @param String token
-	 * @param int type
 	 * @return boolean
 	 * @ParamType token String
-	 * @ParamType type int
 	 * @ReturnType boolean
 	 */
-	public function validateToken($token, $type = self::AGENT_TOKEN) {
+	public function validateToken($token) {
 		// Not yet implemented
 	}
 
 	/**
 	 * @access public
 	 * @param int type
+	 * @param String email
 	 * @return String
 	 * @ParamType type int
+	 * @ParamType email String
 	 * @ReturnType String
 	 */
-	public function issueToken($type = self::AGENT_TOKEN) {
+	public function issueToken($type = self::AGENT_TOKEN, $email = null) {
 		// Not yet implemented
 	}
 }
